@@ -9,6 +9,8 @@
   padding: 0;
 }
 
-/* body {
+body {
   font-family: "Nunito Sans", sans-serif;
-} */
+  @apply bg-bg-light-gray;
+  @apply text-dark-blue;
+}
