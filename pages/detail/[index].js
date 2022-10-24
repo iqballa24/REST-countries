@@ -1,15 +1,8 @@
 import React from "react";
-import Layouts from "@/components/Layouts";
-import ButtonBack from "@/components/Button/ButtonBack";
-import DetailCard from "@/components/Card/DetailCard";
+import DetailCountry from "@/templates/DetailCountry";
 
 const index = () => {
-  return (
-    <Layouts>
-      <ButtonBack />
-      <DetailCard />
-    </Layouts>
-  );
+  return <DetailCountry />;
 };
 
 export default index;

@@ -1,5 +1,9 @@
 module.exports = {
-  content: ["./pages/**/*.{html,js}", "./components/**/*.{html,js}"],
+  content: [
+    "./pages/**/*.{html,js}",
+    "./components/**/*.{html,js}",
+    "./templates/**/*.{html.js}",
+  ],
   theme: {
     fontFamily: {
       sans: ["Nunito", "sans-serif"],

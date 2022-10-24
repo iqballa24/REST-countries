@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 
 const TextDescription = ({ title, text }) => {
   return (
@@ -9,28 +10,28 @@ const TextDescription = ({ title, text }) => {
 };
 
 const index = ({ data }) => {
-  console.log(data);
-
   return (
-    <div className="w-full flex flex-col max-w-[280px] mb-14 bg-white rounded-[5px] overflow-hidden">
-      <img
-        src={data.flags.png}
-        alt={data.name.common}
-        loading="lazy"
-        className="h-40 w-full"
-      />
-      <div className="flex flex-col p-6 pb-10">
-        <h1 className="text-base font-bold mb-3">{data.name.common}</h1>
-        <div className="space-y-1">
-          <TextDescription
-            title="Population"
-            text={data.population.toLocaleString()}
-          />
-          <TextDescription title="Region" text={data.region} />
-          <TextDescription title="Capital" text={data.capital} />
+    <Link href={`/detail/${data.name.common}`}>
+      <div className="w-full flex flex-col max-w-[280px] mb-14 bg-white rounded-[5px] overflow-hidden cursor-pointer">
+        <img
+          src={data.flags.png}
+          alt={data.name.common}
+          loading="lazy"
+          className="h-40 w-full"
+        />
+        <div className="flex flex-col p-6 pb-10">
+          <h1 className="text-base font-bold mb-3">{data.name.common}</h1>
+          <div className="space-y-1">
+            <TextDescription
+              title="Population"
+              text={data.population.toLocaleString()}
+            />
+            <TextDescription title="Region" text={data.region} />
+            <TextDescription title="Capital" text={data.capital} />
+          </div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 
