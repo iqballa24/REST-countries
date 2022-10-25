@@ -3,11 +3,11 @@ import Layouts from "@/components/Layouts";
 import ButtonBack from "@/components/Button/ButtonBack";
 import DetailCard from "@/components/Card/DetailCard";
 
-const index = () => {
+const index = ({ data }) => {
   return (
-    <Layouts title="tester">
+    <Layouts title={data.name.common} icon={data.flags.svg}>
       <ButtonBack />
-      <DetailCard />
+      <DetailCard data={data} />
     </Layouts>
   );
 };

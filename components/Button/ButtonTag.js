@@ -1,13 +1,15 @@
 import React from "react";
+import Link from "next/link";
 
-const ButtonTag = (props) => {
+const ButtonTag = ({ data }) => {
+  const { name, cca3 } = data;
   return (
-    <div className="bg-white shadow-sm rounded-sm h-fit cursor-pointer mr-2">
-      <p className="py-1 px-5 flex items-center space-x-2 text-xs">
-        {props.countrie}
-      </p>
-    </div>
+    <Link href={`/detail/${cca3}`}>
+      <div className="bg-white shadow rounded-sm h-fit cursor-pointer mr-2 hover:bg-white/20 transition">
+        <p className="py-1 px-7 flex items-center text-xs">{name.common}</p>
+      </div>
+    </Link>
   );
 };
 
-export default ButtonTag;
+export default React.memo(ButtonTag);

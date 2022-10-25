@@ -5,18 +5,22 @@ import filterCountries from "utils/filterCountries";
 
 const Home = () => {
   let debounce = null;
+
+  const [regionSelect, setRegionSelect] = useState("");
   const [searchValue, setSearchValue] = useState("");
   const [dataFilter, setDataFilter] = useState([]);
-  const dataCountries = useCountries(searchValue);
+  const dataCountries = useCountries(regionSelect);
   const { data, loading, error } = dataCountries;
-
-  console.log(data);
 
   const onSearchHandler = useCallback((e) => {
     clearTimeout(debounce);
     debounce = setTimeout(() => {
       setSearchValue(e.target.value);
     }, 800);
+  }, []);
+
+  const onChangeHandler = useCallback((e) => {
+    setRegionSelect(e.target.value);
   }, []);
 
   useEffect(() => {
@@ -30,6 +34,8 @@ const Home = () => {
       data={searchValue == "" ? data : dataFilter}
       loading={loading}
       error={error}
+      searchValue={searchValue}
+      onChangeHandler={onChangeHandler}
       onSearchHandler={onSearchHandler}
     />
   );

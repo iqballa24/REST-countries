@@ -12,9 +12,15 @@ const index = (props) => {
           name="description"
           content="Search countries by name country and region. Also, you can get information the detail about the country"
         />
+        <meta name="theme-color" content="#000000" />
+        <link rel="icon" href={props.icon ? props.icon : "/earth.png"} />
+        <link
+          rel="apple-touch-icon"
+          href={props.icon ? props.icon : "/earth.png"}
+        />
       </Head>
       <Navbar />
-      <div className="px-3 sm:px-8 lg:px-20 pt-10">{props.children}</div>
+      <div className="px-3 sm:px-8 lg:px-20 pt-10 mb-10">{props.children}</div>
     </>
   );
 };

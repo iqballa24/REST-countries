@@ -11,8 +11,8 @@ const TextDescription = ({ title, text }) => {
 
 const index = ({ data }) => {
   return (
-    <Link href={`/detail/${data.name.common}`}>
-      <div className="w-full flex flex-col max-w-[280px] mb-14 bg-white rounded-[5px] overflow-hidden cursor-pointer">
+    <Link href={`/detail/${data.cca3}`}>
+      <div className="w-full flex flex-col max-w-[280px] mb-14 bg-white rounded-[5px] overflow-hidden cursor-pointer hover:shadow-lg transition">
         <img
           src={data.flags.png}
           alt={data.name.common}
