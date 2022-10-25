@@ -3,10 +3,10 @@ import ButtonTag from "@/components/Button/ButtonTag";
 import getValueObject from "utils/getValueObject";
 
 const DetailCard = ({ data }) => {
-  const { name, symbol } = Object.entries(data.currencies)[0][1];
+  const { name, symbol } = data.currencies
+    ? Object.entries(data.currencies)[0][1]
+    : "";
   const languages = getValueObject(data.languages).join(", ");
-
-  console.log(data.borders[0]);
 
   return (
     <div className="flex flex-row flex-wrap mt-16">
@@ -45,9 +45,7 @@ const DetailCard = ({ data }) => {
             </p>
             <p className="text-sm font-semibold">
               Currencies:{" "}
-              <span className="font-normal">
-                {name} ({symbol})
-              </span>
+              <span className="font-normal">{name} ({symbol})</span>
             </p>
             <p className="text-sm font-semibold">
               Languages: <span className="font-normal">{languages}</span>
