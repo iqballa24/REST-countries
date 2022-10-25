@@ -27,7 +27,7 @@ export async function getStaticProps({ params }) {
   const res2 = await instance.fetcher(`/v3.1/alpha?codes=TLS,MYS,PNG`);
 
   const data = {
-    error: res1.status !== 200 && res2.status !== 200,
+    status: res1.status == 200 && res2.status == 200,
     data: { ...res1.data[0], borders: res2.data },
   };
 
