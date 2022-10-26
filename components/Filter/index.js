@@ -3,9 +3,9 @@ import { filterRegion } from "constant";
 
 const index = ({ onChangeHandler }) => {
   return (
-    <div className="flex justify-center shadow-md shadow-slate-100 rounded-md bg-white px-1">
+    <div className="flex justify-center shadow-md shadow rounded-md px-1 dark:bg-dark-blue dark:shadow-sm">
       <select
-        className="rounded-md text-xs font-semibold p-4 sm:py-0 cursor-pointer"
+        className="rounded-md text-xs p-4 sm:py-0 cursor-pointer dark:bg-dark-blue"
         defaultValue={""}
         onChange={(e) => onChangeHandler(e)}
       >
