@@ -3,7 +3,6 @@ import DetailCountry from "@/templates/DetailCountry";
 import instance from "lib/instance";
 
 const index = ({ country }) => {
-  console.log(country);
   return <DetailCountry data={country.data} />;
 };
 
@@ -24,7 +23,8 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
   const res1 = await instance.fetcher(`/v3.1/alpha/${params.country}`);
-  const res2 = await instance.fetcher(`/v3.1/alpha?codes=TLS,MYS,PNG`);
+  const borders = res1.data[0].borders;
+  const res2 = await instance.fetcher(`/v3.1/alpha?codes=${borders.join(",")}`);
 
   const data = {
     status: res1.status == 200 && res2.status == 200,
