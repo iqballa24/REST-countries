@@ -4,7 +4,7 @@ import { MdOutlineDarkMode } from "react-icons/md";
 
 const Navbar = () => {
   const [mounted, setMounted] = useState(false);
-  const { theme, setTheme } = useTheme('dark');
+  const { theme, setTheme } = useTheme("dark");
 
   useEffect(() => {
     setMounted(true);
@@ -15,16 +15,19 @@ const Navbar = () => {
   }
 
   return (
-    <nav className="bg-white drop-shadow-md px-3 sm:px-8 lg:px-20 py-6 dark:bg-dark-blue dark:border-0">
+    <nav
+      className="bg-white drop-shadow-md px-3 sm:px-8 lg:px-20 py-6 dark:bg-dark-blue dark:border-0"
+      role="navigation"
+    >
       <div className="flex flex-row justify-between items-center">
-        <h1 className="text-base sm:text-lg lg:text-xl font-bold">
+        <span className="text-base sm:text-lg lg:text-xl font-bold">
           Where in the world?
-        </h1>
+        </span>
         <div
           className="flex flex-row items-center cursor-pointer"
           onClick={() => setTheme(theme == "dark" ? "light" : "dark")}
         >
-          <MdOutlineDarkMode/>
+          <MdOutlineDarkMode />
           <p className="text-sm font-semibold pl-1">Dark Mode</p>
         </div>
       </div>

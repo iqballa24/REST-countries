@@ -16,7 +16,6 @@ const index = ({ data }) => {
         <img
           src={data.flags.png}
           alt={data.name.common}
-          loading="lazy"
           className="h-40 w-full"
         />
         <div className="flex flex-col p-6 pb-10">
