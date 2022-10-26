@@ -27,7 +27,7 @@ const Home = () => {
     if (searchValue !== "") {
       setDataFilter(filterCountries(data, searchValue));
     }
-  }, [searchValue]);
+  }, [searchValue, data]);
 
   return (
     <HomeContainer

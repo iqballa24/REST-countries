@@ -14,3 +14,7 @@ body {
   @apply bg-bg-light-gray;
   @apply text-dark-blue;
 }
+
+option[value="default"][disabled] {
+  display: none;
+}
