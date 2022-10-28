@@ -3,7 +3,7 @@ import { filterRegion } from "constant";
 
 const index = ({ onChangeHandler }) => {
   return (
-    <div className="bg-white flex justify-center shadow-md shadow rounded-md px-1 dark:bg-dark-blue dark:shadow-sm">
+    <div className="bg-white flex justify-center shadow rounded-md px-1 dark:bg-dark-blue dark:shadow-sm">
       <div id="state" className="hidden">State:</div>
       <select
         className="rounded-md text-xs p-4 sm:py-0 cursor-pointer dark:bg-dark-blue"
