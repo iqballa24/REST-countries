@@ -1,6 +1,6 @@
-# Frontend Mentor - Tip calculator app solution
+# Frontend Mentor - Rest Countries app solution
 
-This is a solution to the [Tip calculator app challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/tip-calculator-app-ugJNGbJUX). Frontend Mentor challenges help you improve your coding skills by building realistic projects.
+This is a solution to the [Rest Countries app challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/rest-countries-api-with-color-theme-switcher-5cacc469fec04111f7b848ca). Frontend Mentor challenges help you improve your coding skills by building realistic projects.
 
 ## Table of contents
 
@@ -27,8 +27,10 @@ Users should be able to:
 
 ### Screenshot
 
-![image](https://user-images.githubusercontent.com/57162533/201825596-8e6896d7-7afb-4df8-a437-0b6489c2d50b.png)
-![mobile-design](https://user-images.githubusercontent.com/57162533/201825815-3d82427d-a076-48c3-b0a8-3e790516762e.jpg)
+![light-mode](https://user-images.githubusercontent.com/57162533/202858388-477c92ba-9a69-46e8-9bdc-253883e77bcb.png)
+![dark-mode](https://user-images.githubusercontent.com/57162533/202858381-95598d44-f0d4-4342-af06-568b7a7ebbee.png)
+![detail-page](https://user-images.githubusercontent.com/57162533/202858392-d8fcd396-f390-40fe-a24c-f58c8f2cb17b.png)
+
 
 ### Links
 
