@@ -1,18 +1,25 @@
 import { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
-import { MdOutlineDarkMode } from "react-icons/md";
+import ButtonSwitch from "../Button/ButtonSwitch";
 
 const Navbar = () => {
+  const [isChecked, setIsChecked] = useState(false);
   const [mounted, setMounted] = useState(false);
   const { theme, setTheme } = useTheme("dark");
 
   useEffect(() => {
+    theme === "dark" ? setIsChecked(true) : setIsChecked(false);
     setMounted(true);
   }, []);
 
   if (!mounted) {
     return null;
   }
+
+  const onClickSwitchHandler = () => {
+    setTheme(theme == "dark" ? "light" : "dark");
+    setIsChecked((prev) => !prev);
+  };
 
   return (
     <nav
@@ -23,13 +30,7 @@ const Navbar = () => {
         <span className="text-base sm:text-lg lg:text-xl font-bold">
           Where in the world?
         </span>
-        <div
-          className="flex flex-row items-center cursor-pointer"
-          onClick={() => setTheme(theme == "dark" ? "light" : "dark")}
-        >
-          <MdOutlineDarkMode />
-          <p className="text-sm font-semibold pl-1">Dark Mode</p>
-        </div>
+        <ButtonSwitch onClick={onClickSwitchHandler} checked={isChecked} />
       </div>
     </nav>
   );
