@@ -1,8 +1,14 @@
 import React from "react";
 import DetailCountry from "@/templates/DetailCountry";
 import instance from "lib/instance";
+import { useRouter } from "next/router";
 
 const index = ({ country }) => {
+  const router = useRouter();
+
+  if (router.isFallback) {
+    return;
+  }
   return <DetailCountry data={country.data} />;
 };
 
@@ -18,7 +24,7 @@ export async function getStaticPaths() {
     },
   }));
 
-  return { paths, fallback: false };
+  return { paths, fallback: true };
 }
 
 export async function getStaticProps({ params }) {

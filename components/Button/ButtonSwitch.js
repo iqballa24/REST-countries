@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import classes from "./ButtonSwitch.module.css";
 import { MdOutlineNightlight } from "react-icons/md";
 import { MdOutlineLightMode } from "react-icons/md";

@@ -6,7 +6,7 @@ const index = ({ onChangeHandler }) => {
     <div className="bg-white flex justify-center shadow rounded-md px-1 dark:bg-dark-blue dark:shadow-sm">
       <div id="state" className="hidden">State:</div>
       <select
-        className="rounded-md text-xs p-4 sm:py-0 cursor-pointer dark:bg-dark-blue"
+        className="bg-white rounded-md text-xs p-4 sm:py-0 cursor-pointer dark:bg-dark-blue"
         defaultValue={"default"}
         onChange={(e) => onChangeHandler(e)}
         aria-labelledby="state"

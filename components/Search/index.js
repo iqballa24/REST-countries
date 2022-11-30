@@ -3,7 +3,7 @@ import { MdOutlineSearch } from "react-icons/md";
 
 const index = ({ onSearchHandler }) => {
   return (
-    <div className="relative w-full shadow-md shadow rounded-md max-w-sm dark:bg-dark-blue dark:text-white">
+    <div className="relative w-full shadow rounded-md max-w-sm dark:bg-dark-blue dark:text-white">
       <span className="absolute text-sm text-dark-gray left-[15px] top-[18px] ">
         <MdOutlineSearch />
       </span>

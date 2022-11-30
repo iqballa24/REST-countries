@@ -1,6 +1,7 @@
-import React from "react";
+import React, { Fragment, useState, useMemo, useEffect } from "react";
 import Card from "@/components/Card";
 import CardSkeleton from "@/components/Skeleton/CardSkeleton";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 const ErrorState = () => {
   return (
@@ -30,18 +31,70 @@ const EmptyState = ({ country }) => {
 };
 
 const SectionListCountries = ({ data, loading, error, searchValue }) => {
+  const itemPerPage = 16;
+  const totalPage = Math.ceil(data.length / itemPerPage);
+  const [page, setPage] = useState(1);
+  const [initializeData, setInitializeData] = useState([]);
+  const [hasMore, setHasMore] = useState(true);
+
+  const loadMore = () => {
+    setPage((prev) => prev + 1);
+
+    if (searchValue === "") {
+      if (page >= totalPage) {
+        setHasMore(false);
+      } else {
+        setHasMore(true);
+      }
+    }
+    return;
+  };
+
+  const pageData = useMemo(() => {
+    return searchValue === ""
+      ? data.slice(page * itemPerPage - itemPerPage, page * itemPerPage)
+      : data;
+  }, [page, data, searchValue]);
+
+  useEffect(() => {
+    setInitializeData([]);
+    searchValue === "" ? setHasMore(true) : setHasMore(false);
+    setPage(1);
+  }, [searchValue]);
+
+  useEffect(() => {
+    searchValue === ""
+      ? setInitializeData((prev) => [...prev, ...pageData])
+      : setInitializeData((prev) => [...pageData]);
+  }, [pageData, page, searchValue]);
+
   return (
-    <div className="flex flex-wrap justify-evenly md:justify-between w-full">
-      {loading
-        ? Array(8)
-            .fill(8)
-            .map((value, index) => <CardSkeleton key={index} />)
-        : data.map((item, index) => {
-            return <Card data={item} key={index} />;
-          })}
+    <Fragment>
+      {data.length > 0 && (
+        <InfiniteScroll
+          dataLength={initializeData.length}
+          next={loadMore}
+          hasMore={hasMore}
+          loader={
+            <div className="flex flex-wrap justify-evenly md:justify-between w-full">
+              {Array(4)
+                .fill(4)
+                .map((value, index) => (
+                  <CardSkeleton key={index} />
+                ))}
+            </div>
+          }
+        >
+          <div className="flex flex-wrap justify-evenly md:justify-between w-full mt-2">
+            {initializeData.map((item, i) => (
+              <Card data={item} key={i} />
+            ))}
+          </div>
+        </InfiniteScroll>
+      )}
       {error.status && <ErrorState />}
       {data.length === 0 && !loading && <EmptyState country={searchValue} />}
-    </div>
+    </Fragment>
   );
 };
 
