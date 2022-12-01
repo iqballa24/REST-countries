@@ -17,9 +17,8 @@ const index = ({ data }) => {
           <Image
             src={data.flags.png}
             alt={data.name.common}
-            fill
-            height={40}
-            width="full"
+            height={180}
+            width={320}
           />
           <div className="flex flex-col p-6 pb-10">
             <h1 className="text-base font-bold mb-3">{data.name.common}</h1>

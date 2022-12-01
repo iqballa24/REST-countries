@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useMemo, useEffect } from "react";
+import React, { Fragment, useState, useMemo, useEffect, useRef } from "react";
 import Card from "@/components/Card";
 import CardSkeleton from "@/components/Skeleton/CardSkeleton";
 import InfiniteScroll from "react-infinite-scroll-component";
@@ -33,18 +33,20 @@ const EmptyState = ({ country }) => {
 const SectionListCountries = ({ data, loading, error, searchValue }) => {
   const itemPerPage = 16;
   const totalPage = Math.ceil(data.length / itemPerPage);
+  const hasMore = useRef(true);
   const [page, setPage] = useState(1);
   const [initializeData, setInitializeData] = useState([]);
-  const [hasMore, setHasMore] = useState(true);
 
   const loadMore = () => {
     setPage((prev) => prev + 1);
 
     if (searchValue === "") {
       if (page >= totalPage) {
-        setHasMore(false);
+        setPage(1);
+        hasMore.current = false;
       } else {
-        setHasMore(true);
+        setInitializeData((prev) => [...prev, ...pageData]);
+        hasMore.current = true;
       }
     }
     return;
@@ -58,15 +60,21 @@ const SectionListCountries = ({ data, loading, error, searchValue }) => {
 
   useEffect(() => {
     setInitializeData([]);
-    searchValue === "" ? setHasMore(true) : setHasMore(false);
-    setPage(1);
+
+    return () => {
+      setPage(1);
+      hasMore.current = searchValue === "" ? true : false;
+    };
   }, [searchValue]);
 
   useEffect(() => {
-    searchValue === ""
-      ? setInitializeData((prev) => [...prev, ...pageData])
-      : setInitializeData((prev) => [...pageData]);
-  }, [pageData, page, searchValue]);
+    setInitializeData((prev) => [...pageData]);
+
+    return () => {
+      setPage(1);
+      hasMore.current = searchValue === "" ? true : false;
+    };
+  }, [data]);
 
   return (
     <Fragment>
@@ -74,7 +82,7 @@ const SectionListCountries = ({ data, loading, error, searchValue }) => {
         <InfiniteScroll
           dataLength={initializeData.length}
           next={loadMore}
-          hasMore={hasMore}
+          hasMore={hasMore.current}
           loader={
             <div className="flex flex-wrap justify-evenly md:justify-between w-full">
               {Array(4)
