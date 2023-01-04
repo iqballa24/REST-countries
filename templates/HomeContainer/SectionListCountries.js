@@ -1,88 +1,62 @@
-import React, { Fragment, useState, useMemo, useEffect, useRef } from "react";
-import Card from "@/components/Card";
-import CardSkeleton from "@/components/Skeleton/CardSkeleton";
-import InfiniteScroll from "react-infinite-scroll-component";
-
-const ErrorState = () => {
-  return (
-    <div className="flex flex-col items-center text-center w-full mt-10">
-      <h1 className="text-base sm:text-lg font-bold mb-2">Oopps..</h1>
-      <p className="text-sm sm:text-base font-normal">
-        Something when wrong, we failed to get the page.
-      </p>
-      <p className="text-sm sm:text-base font-normal">
-        You may also refresh the page or try again later.
-      </p>
-    </div>
-  );
-};
-
-const EmptyState = ({ country }) => {
-  return (
-    <div className="flex flex-col items-center text-center w-full mt-10">
-      <h1 className="text-base sm:text-lg font-bold mb-2">
-        Country "{country}" is not found!
-      </h1>
-      <p className="text-sm sm:text-base font-normal">
-        Try another name or change to another region
-      </p>
-    </div>
-  );
-};
+import React, { Fragment, useState, useMemo, useEffect, useRef } from 'react';
+import Card from '@/components/Card';
+import EmptyState from '@/components/EmptyState';
+import ErrorState from '@/components/ErrorState';
+import CardSkeleton from '@/components/Skeleton/CardSkeleton';
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 const SectionListCountries = ({ data, loading, error, searchValue }) => {
   const itemPerPage = 16;
   const totalPage = Math.ceil(data.length / itemPerPage);
-  const hasMore = useRef(true);
-  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(true);
+  const page = useRef(1);
   const [initializeData, setInitializeData] = useState([]);
 
   const loadMore = () => {
-    setPage((prev) => prev + 1);
+    page.current += 1;
 
-    if (searchValue === "") {
-      if (page >= totalPage) {
-        setPage(1);
-        hasMore.current = false;
-      } else {
-        setInitializeData((prev) => [...prev, ...pageData]);
-        hasMore.current = true;
-      }
+    if (page.current >= totalPage) {
+      page.current = 1;
+      setHasMore(false);
+    } else {
+      setInitializeData((prev) => [...prev, ...pageData]);
+      setHasMore(true);
     }
     return;
   };
 
   const pageData = useMemo(() => {
-    return searchValue === ""
-      ? data.slice(page * itemPerPage - itemPerPage, page * itemPerPage)
-      : data;
-  }, [page, data, searchValue]);
-
-  useEffect(() => {
-    setInitializeData([]);
-
-    return () => {
-      setPage(1);
-      hasMore.current = searchValue === "" ? true : false;
-    };
-  }, [searchValue]);
+    return data.slice(
+      page.current * itemPerPage - itemPerPage,
+      page.current * itemPerPage
+    );
+  }, [page.current, data]);
 
   useEffect(() => {
     setInitializeData((prev) => [...pageData]);
 
-    return () => {
-      setPage(1);
-      hasMore.current = searchValue === "" ? true : false;
-    };
-  }, [data]);
+    if (searchValue === '') {
+      page.current = 1;
+      setHasMore(true);
+    } else {
+      setHasMore(false);
+    }
+  }, [data, searchValue]);
+
+  const countries =
+    searchValue === ''
+      ? initializeData
+      : data.filter((country) =>
+          country.name.common.toLowerCase().includes(searchValue.toLowerCase())
+        );
 
   return (
     <Fragment>
-      {data.length > 0 && (
+      {countries.length > 0 && (
         <InfiniteScroll
           dataLength={initializeData.length}
           next={loadMore}
-          hasMore={hasMore.current}
+          hasMore={hasMore}
           loader={
             <div className="flex flex-wrap justify-evenly md:justify-between w-full">
               {Array(4)
@@ -94,14 +68,16 @@ const SectionListCountries = ({ data, loading, error, searchValue }) => {
           }
         >
           <div className="flex flex-wrap justify-evenly md:justify-between w-full mt-2">
-            {initializeData.map((item, i) => (
+            {countries.map((item, i) => (
               <Card data={item} key={i} />
             ))}
           </div>
         </InfiniteScroll>
       )}
       {error.status && <ErrorState />}
-      {data.length === 0 && !loading && <EmptyState country={searchValue} />}
+      {countries.length === 0 && !loading && (
+        <EmptyState country={searchValue} />
+      )}
     </Fragment>
   );
 };

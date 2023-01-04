@@ -8,7 +8,6 @@ const Home = () => {
 
   const [regionSelect, setRegionSelect] = useState("");
   const [searchValue, setSearchValue] = useState("");
-  const [dataFilter, setDataFilter] = useState([]);
   const dataCountries = useCountries(regionSelect);
   const { data, loading, error } = dataCountries;
 
@@ -16,22 +15,16 @@ const Home = () => {
     clearTimeout(debounce);
     debounce = setTimeout(() => {
       setSearchValue(e.target.value);
-    }, 800);
+    }, 300);
   }, []);
 
   const onChangeHandler = useCallback((e) => {
     setRegionSelect(e.target.value);
   }, []);
 
-  useEffect(() => {
-    if (searchValue !== "") {
-      setDataFilter(filterCountries(data, searchValue));
-    }
-  }, [searchValue, data]);
-
   return (
     <HomeContainer
-      data={searchValue == "" ? data : dataFilter}
+      data={data}
       loading={loading}
       error={error}
       searchValue={searchValue}
